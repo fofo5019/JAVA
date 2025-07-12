@@ -1,0 +1,30 @@
+{
+  "chapitreActuel" : 28,
+  "joueur" : {
+    "nom" : "franck",
+    "pointsDeVie" : 5,
+    "pointsDeVieMax" : 10,
+    "doublonsOr" : 19,
+    "inventaire" : [ {
+      "nom" : "Épée",
+      "type" : "arme"
+    }, {
+      "nom" : "carte",
+      "type" : "Inconnu"
+    }, {
+      "nom" : "amulette",
+      "type" : "Inconnu"
+    }, {
+      "nom" : "clé",
+      "type" : "Inconnu"
+    }, {
+      "nom" : "clé",
+      "type" : "Inconnu"
+    }, {
+      "nom" : "pistolet",
+      "type" : "Inconnu"
+    } ],
+    "competences" : [ "Navigation", "Escrime" ],
+    "motsDePasse" : [ "Tempête", "Crâne" ]
+  }
+}
