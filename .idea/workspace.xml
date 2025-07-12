@@ -6,7 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="ce13b1ba-6d41-43ae-9d11-08b817fb6988" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/app/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/app/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/app/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/view/GameView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/livre-aventure-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/livre-aventure-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/original-livre-aventure-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/original-livre-aventure-1.0-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

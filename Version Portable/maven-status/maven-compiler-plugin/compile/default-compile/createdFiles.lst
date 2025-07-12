@@ -1,0 +1,11 @@
+com\example\util\SaveManager.class
+com\example\app\Main.class
+com\example\controller\GameController.class
+com\example\view\TextUI.class
+com\example\controller\ScenarioLoader.class
+com\example\model\Chapitre.class
+com\example\view\GameView.class
+com\example\model\GameState.class
+com\example\model\Choix.class
+com\example\model\Personnage.class
+com\example\model\Scenario.class

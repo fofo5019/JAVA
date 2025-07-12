@@ -28,22 +28,26 @@ public class Main {
         // On construit le scénario en partant du tout premier chapitre
         Scenario scenario = new Scenario(1, chapitres);
 
-        // Scanner pour lire les choix de l’utilisateur
-        Scanner scanner = new Scanner(System.in);
-
-        // Petite introduction dans la console
-        System.out.println("--- Le Pirate des Sept Mers ---");
-        System.out.print("Voulez-vous lancer en mode (1) Console ou (2) Graphique ? ");
-        String mode = scanner.nextLine();
-
-        // Si l’utilisateur préfère l’interface graphique…
-        if ("2".equals(mode)) {
-            // …on crée la fenêtre Swing de jeu
+        // **CORRECTION :** On vérifie si un argument "gui" est passé au lancement.
+        // C'est la méthode la plus fiable pour un lancement par script.
+        if (args.length > 0 && "gui".equalsIgnoreCase(args[0])) {
+            // Si oui, on lance directement l'interface graphique.
             SwingUtilities.invokeLater(() -> new GameView(scenario));
         } else {
-            // Sinon, on reste en mode texte pour vivre l’aventure dans la console
-            TextUI textUI = new TextUI(scanner, scenario);
-            textUI.start();
+            // Sinon, on garde le comportement normal avec le menu dans la console.
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("--- Le Pirate des Sept Mers ---");
+            System.out.print("Voulez-vous lancer en mode (1) Console ou (2) Graphique ? ");
+            String mode = scanner.nextLine();
+
+            if ("2".equals(mode.trim())) {
+                // L'utilisateur a choisi le mode graphique.
+                SwingUtilities.invokeLater(() -> new GameView(scenario));
+            } else {
+                // L'utilisateur a choisi le mode console.
+                TextUI textUI = new TextUI(scanner, scenario);
+                textUI.start();
+            }
         }
     }
 }
