@@ -6,6 +6,7 @@ import com.example.util.SaveManager;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GameController {
@@ -60,6 +61,10 @@ public class GameController {
     }
 
     public void choisir(Choix choix) {
+        appliquerEffets(choix); // MODIFICATION : Appliquer les effets du choix
+        if (isGameOver()) {
+            return; // Arrêter si le joueur meurt suite au choix
+        }
         gameState.setChapitreActuel(choix.getDestination());
         appliquerEffets(getChapitreCourant());
     }
@@ -74,9 +79,34 @@ public class GameController {
                         return false;
                     }
                 }
+                // Vous pouvez ajouter d'autres types de conditions ici
             }
         }
         return true;
+    }
+
+    // MODIFICATION : Nouvelle méthode pour appliquer les effets d'un choix
+    @SuppressWarnings("unchecked")
+    private void appliquerEffets(Choix choix) {
+        if (choix == null || choix.getEffets() == null) {
+            return;
+        }
+
+        var effets = choix.getEffets();
+        Personnage joueur = getJoueur();
+
+        if (effets.containsKey("points_de_vie")) {
+            joueur.modifierPointsDeVie((Integer) effets.get("points_de_vie"));
+        }
+        if (effets.containsKey("or")) {
+            joueur.setDoublonsOr(joueur.getDoublonsOr() + (Integer) effets.get("or"));
+        }
+        if (effets.containsKey("inventaire")) {
+            ((List<String>) effets.get("inventaire")).forEach(item -> joueur.ajouterObjet(new Objet(item, "Inconnu")));
+        }
+        if (effets.containsKey("mots_de_passe")) {
+            joueur.getMotsDePasse().addAll((List<String>) effets.get("mots_de_passe"));
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -85,7 +115,6 @@ public class GameController {
             return;
         }
 
-        // Marquer d'abord comme visité pour éviter les effets multiples
         gameState.getChapitresVisites().add(chapitre.getId());
 
         if (chapitre.getEffets() != null) {
