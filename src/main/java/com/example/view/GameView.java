@@ -1,3 +1,12 @@
+/*  
+╔══════════════════════════════════════════════════════╗
+║  Projet Java – Le livre dont vous êtes le héros      ║
+║  Le Pirate des 7 Mers                               ║
+║                                                      ║
+║  ESGI 2 – Franck Giordano & Louis Dalet – 2025      ║
+╚══════════════════════════════════════════════════════╝
+*/
+
 package com.example.view;
 
 import com.example.controller.GameController;
@@ -16,7 +25,6 @@ import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.text.html.HTMLDocument;
 
-// Imports pour le son
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -24,43 +32,45 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.geom.Point2D;
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class GameView extends JFrame {
+    // Contrôleur du jeu, initialisé au lancement ou au chargement
     private GameController controller;
+    // Scénario de l'aventure, chargé au démarrage
     private final Scenario scenario;
+    // Layout pour basculer entre les écrans
     private final CardLayout mainLayout = new CardLayout();
     private JPanel cardContainer;
 
+    // Composants UI principaux
     private JLabel lblTitre;
     private JTextPane txtContent;
     private JPanel pnlChoices;
     private JPanel pnlStatus;
 
+    // Polices et images de fond personnalisées
     private Font pirateFont;
     private Font textFont;
     private Image bgWood;
     private Image bgScroll;
 
     public GameView(Scenario scenario) {
+        // On garde le scénario et on attend de créer le contrôleur plus tard
         this.scenario = scenario;
         this.controller = null;
+        // Chargement des images et polices custom
         loadResources();
+        // Initialisation de l'interface graphique
         initComponents();
+        // Réglages de la fenêtre principale
         setTitle("Le Pirate des Sept Mers");
         setMinimumSize(new Dimension(1280, 800));
         setLocationRelativeTo(null);
@@ -70,8 +80,10 @@ public class GameView extends JFrame {
 
     private void loadResources() {
         try {
+            // Lecture des images de fond
             bgWood = ImageIO.read(getClass().getResourceAsStream("/images/fond_bois.png"));
             bgScroll = ImageIO.read(getClass().getResourceAsStream("/images/parchemin.png"));
+            // Chargement d'une police pirate si disponible
             InputStream f = getClass().getResourceAsStream("/polices/police_pirate.ttf");
             if (f != null) {
                 pirateFont = Font.createFont(Font.TRUETYPE_FONT, f).deriveFont(Font.BOLD, 24f);
@@ -79,13 +91,16 @@ public class GameView extends JFrame {
                 pirateFont = new Font("Serif", Font.BOLD, 24);
             }
         } catch (Exception e) {
+            // En cas de souci, on utilise une police standard
             System.err.println("Erreur de chargement des ressources. Utilisation des polices par défaut.");
             pirateFont = new Font("Serif", Font.BOLD, 24);
         }
+        // Police pour le texte courant
         textFont = new Font("Georgia", Font.PLAIN, 18);
     }
 
     private void initComponents() {
+        // Panneau de fond avec image bois dessinée
         JLayeredPane rootLayeredPane = new JLayeredPane() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -97,22 +112,26 @@ public class GameView extends JFrame {
         };
         setContentPane(rootLayeredPane);
 
+        // Redimensionnement automatique des calques
         rootLayeredPane.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                for (Component c : ((JLayeredPane)e.getComponent()).getComponents()) {
+                for (Component c : ((JLayeredPane) e.getComponent()).getComponents()) {
                     c.setBounds(0, 0, e.getComponent().getWidth(), e.getComponent().getHeight());
                 }
             }
         });
 
+        // Couche pour les particules animées
         ParticlePane particlePane = new ParticlePane();
         rootLayeredPane.add(particlePane, Integer.valueOf(1));
 
+        // Conteneur principal pour les cartes MENU et GAME
         cardContainer = new JPanel(mainLayout);
         cardContainer.setOpaque(false);
         rootLayeredPane.add(cardContainer, Integer.valueOf(2));
 
+        // Création de la barre de menu et des écrans
         creerBarreMenu();
         JPanel menuCard = createMenuScreen();
         JPanel gameCard = createGameScreen();
@@ -120,10 +139,12 @@ public class GameView extends JFrame {
         cardContainer.add(menuCard, "MENU");
         cardContainer.add(gameCard, "GAME");
 
+        // Affichage par défaut du menu principal
         mainLayout.show(cardContainer, "MENU");
     }
 
     private void creerBarreMenu() {
+        // Menu Fichier avec options Sauvegarder et Retour au menu
         JMenuBar menuBar = new JMenuBar();
         menuBar.setOpaque(false);
         JMenu menuFichier = new JMenu("Fichier");
@@ -157,6 +178,7 @@ public class GameView extends JFrame {
     }
 
     private JPanel createMenuScreen() {
+        // Écran de menu principal avec couverture, titre et boutons
         JPanel menu = new JPanel(new GridBagLayout());
         menu.setOpaque(false);
 
@@ -184,6 +206,7 @@ public class GameView extends JFrame {
         box.add(title);
         box.add(Box.createVerticalStrut(60));
 
+        // Bouton Nouvelle Partie
         JButton btnNew = themedButton("Nouvelle Partie");
         btnNew.setFont(pirateFont.deriveFont(24f));
         btnNew.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -195,6 +218,7 @@ public class GameView extends JFrame {
 
         box.add(Box.createVerticalStrut(20));
 
+        // Bouton Charger Partie
         JButton btnLoad = themedButton("Charger une Partie");
         btnLoad.setFont(pirateFont.deriveFont(24f));
         btnLoad.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -209,15 +233,18 @@ public class GameView extends JFrame {
     }
 
     private JPanel createGameScreen() {
+        // Écran de jeu principal, status à gauche et contenu au centre
         JPanel gamePanel = new JPanel(new BorderLayout());
         gamePanel.setOpaque(false);
 
+        // Panneau d'état du joueur
         pnlStatus = new JPanel(new GridBagLayout());
         pnlStatus.setOpaque(false);
         pnlStatus.setBorder(new EmptyBorder(30, 20, 20, 20));
         pnlStatus.setPreferredSize(new Dimension(340, 0));
         gamePanel.add(pnlStatus, BorderLayout.WEST);
 
+        // Panneau parchemin pour le texte
         JPanel pnlParchemin = new JPanel(new GridBagLayout()) {
             @Override protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -227,6 +254,7 @@ public class GameView extends JFrame {
         pnlParchemin.setOpaque(false);
         gamePanel.add(pnlParchemin, BorderLayout.CENTER);
 
+        // Conteneur pour titre, texte et choix
         JPanel pnlContenu = new JPanel(new BorderLayout(10, 20));
         pnlContenu.setOpaque(false);
 
@@ -274,6 +302,7 @@ public class GameView extends JFrame {
     }
 
     private void styleJOptionPane() {
+        // Adaptation des couleurs des boîtes de dialogue pour coller au thème
         Color woodColor = new Color(101, 67, 33);
         Color textColor = new Color(240, 230, 210);
         UIManager.put("Panel.background", new ColorUIResource(woodColor));
@@ -285,6 +314,7 @@ public class GameView extends JFrame {
     }
 
     private void actionNouvellePartieGraphique() {
+        // Dialogue pour saisir le nom du héros puis démarrer la partie
         JPanel contentPanel = new JPanel(new BorderLayout(0, 10));
         contentPanel.setOpaque(false);
         JLabel label = infoLabel("Entrez le nom de votre héros :", textFont, Color.WHITE);
@@ -314,7 +344,7 @@ public class GameView extends JFrame {
 
         okButton.addActionListener(e -> {
             playSound("sons/bang.wav");
-
+            // Petit effet de shake pour l’interaction
             Timer shakeDelayTimer = new Timer(500, evt -> shake());
             shakeDelayTimer.setRepeats(false);
             shakeDelayTimer.start();
@@ -333,6 +363,7 @@ public class GameView extends JFrame {
         String nomHeros = nomHerosResult.get();
 
         if (nomHeros != null) {
+            // Création du personnage et ajout d’équipements de base
             Personnage joueur = new Personnage(nomHeros);
             joueur.getCompetences().add("Escrime");
             joueur.getCompetences().add("Navigation");
@@ -347,6 +378,7 @@ public class GameView extends JFrame {
     }
 
     private void actionChargerPartieGraphique() {
+        // Dialogue pour choisir et charger une partie existante
         List<String> sauvegardes = SaveManager.listerSauvegardes();
         if (sauvegardes.isEmpty()) {
             styleJOptionPane();
@@ -376,11 +408,9 @@ public class GameView extends JFrame {
 
         okButton.addActionListener(e -> {
             playSound("sons/bang.wav");
-
             Timer shakeDelayTimer = new Timer(500, evt -> shake());
             shakeDelayTimer.setRepeats(false);
             shakeDelayTimer.start();
-
             fichierChoisi.set((String) comboBox.getSelectedItem());
             dialog.dispose();
         });
@@ -406,10 +436,12 @@ public class GameView extends JFrame {
     }
 
     public void updateGameView() {
+        // Mise à jour de la vue en fonction de l'état actuel du jeu
         if (controller == null) return;
         updateStatusPanel();
 
         if (controller.isGameOver()) {
+            // Affichage de la fin de partie
             lblTitre.setText("Fin de l'aventure");
             txtContent.setText("<html><body><p>Votre aventure s'achève ici. Vous n'avez pas survécu aux dangers de ces mers impitoyables.</p></body></html>");
             pnlChoices.removeAll();
@@ -417,6 +449,7 @@ public class GameView extends JFrame {
             fin.setAlignmentX(Component.CENTER_ALIGNMENT);
             pnlChoices.add(fin);
         } else {
+            // Affichage du chapitre courant et de ses choix
             Chapitre chap = controller.getChapitreCourant();
             lblTitre.setText("Chapitre " + chap.getId());
             String html = "<html><body><p>" + chap.getTexte().replace("\n", "</p><p>") + "</p></body></html>";
@@ -447,6 +480,7 @@ public class GameView extends JFrame {
     }
 
     private void updateStatusPanel() {
+        // Affiche le nom, la vie, l'or, les compétences et l'inventaire du joueur
         if (controller == null) return;
         pnlStatus.removeAll();
         Personnage p = controller.getJoueur();
@@ -480,6 +514,7 @@ public class GameView extends JFrame {
     }
 
     private void shake() {
+        // Effet de tremblement de la fenêtre pour plus de dynamisme
         final Point originalLocation = getLocation();
         final int duration = 150;
         final int interval = 5;
@@ -509,6 +544,7 @@ public class GameView extends JFrame {
     }
 
     private void playSound(String soundFileName) {
+        // Lecture d'un fichier son pour les effets (vagues, clic, etc.)
         try {
             InputStream audioSrc = getClass().getResourceAsStream("/" + soundFileName);
             if (audioSrc == null) {
@@ -526,6 +562,7 @@ public class GameView extends JFrame {
     }
 
     private JLabel infoLabel(String text, Font font, Color color) {
+        // Création d'un JLabel avec style uniforme
         JLabel lbl = new JLabel(text);
         lbl.setFont(font);
         lbl.setForeground(color);
@@ -533,10 +570,12 @@ public class GameView extends JFrame {
     }
 
     private JLabel infoSection(String text) {
+        // Titre de section stylé pour les panneaux de statut
         return infoLabel(text, pirateFont.deriveFont(28f), new Color(255, 200, 120));
     }
 
     private JPanel iconValue(String iconName, String label, String value) {
+        // Ligne avec icône et texte pour afficher vie, or, etc.
         JPanel p = new JPanel(new BorderLayout(15, 0));
         p.setOpaque(false);
         try {
@@ -552,6 +591,7 @@ public class GameView extends JFrame {
     }
 
     private JButton themedButton(String text) {
+        // Bouton décoré aux couleurs du thème pirate
         JButton btn = new JButton("<html><center>" + text + "</center></html>");
         btn.setFont(textFont.deriveFont(Font.BOLD, 16f));
         btn.setBackground(new Color(80, 40, 0));
@@ -567,17 +607,13 @@ public class GameView extends JFrame {
     }
 
     private static class PirateScrollBarUI extends BasicScrollBarUI {
+        // Scrollbar minimaliste et ronde pour rester dans l'ambiance
         private final Dimension ZERO_DIMENSION = new Dimension(0, 0);
         private final Color THUMB_COLOR = new Color(80, 40, 0, 180);
 
-        @Override
-        protected void configureScrollBarColors() {}
-
-        @Override
-        protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds) {}
-
-        @Override
-        protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
+        @Override protected void configureScrollBarColors() {}
+        @Override protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds) {}
+        @Override protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
             if (thumbBounds.isEmpty() || !scrollbar.isEnabled()) return;
             Graphics2D g2 = (Graphics2D) g.create();
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -585,13 +621,8 @@ public class GameView extends JFrame {
             g2.fillRoundRect(thumbBounds.x + 2, thumbBounds.y + 2, thumbBounds.width - 4, thumbBounds.height - 4, 10, 10);
             g2.dispose();
         }
-
-        @Override
-        protected JButton createDecreaseButton(int orientation) { return createZeroButton(); }
-
-        @Override
-        protected JButton createIncreaseButton(int orientation) { return createZeroButton(); }
-
+        @Override protected JButton createDecreaseButton(int orientation) { return createZeroButton(); }
+        @Override protected JButton createIncreaseButton(int orientation) { return createZeroButton(); }
         private JButton createZeroButton() {
             JButton button = new JButton();
             button.setPreferredSize(ZERO_DIMENSION);
@@ -602,6 +633,7 @@ public class GameView extends JFrame {
     }
 
     private static class ThemedDialog extends JDialog {
+        // Boîte de dialogue custom détachable et stylée
         private Point initialClick;
 
         public ThemedDialog(Frame parent, String title, JPanel contentPanel) {
@@ -657,6 +689,7 @@ public class GameView extends JFrame {
     }
 
     private static class Particle {
+        // Représente une particule animée (flamme, étincelle…)
         double x, y, vx, vy;
         int life, maxLife, size;
 
@@ -668,6 +701,7 @@ public class GameView extends JFrame {
     }
 
     private class ParticlePane extends JPanel {
+        // Panneau qui gère et dessine des particules en continu
         private final List<Particle> particles = new ArrayList<>();
         private final Random random = new Random();
         private final Timer timer;
@@ -694,6 +728,7 @@ public class GameView extends JFrame {
         }
 
         private void updateAndRepaint() {
+            // Crée de nouvelles particules et met à jour celles existantes
             if (getWidth() == 0) return;
 
             if (random.nextInt(100) > 50) {
@@ -723,6 +758,7 @@ public class GameView extends JFrame {
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+            // Dessine chaque particule avec un dégradé radial
             for (Particle p : particles) {
                 float alpha = Math.max(0, (float) p.life / p.maxLife);
                 g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha * 0.9f));

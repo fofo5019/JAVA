@@ -1,3 +1,12 @@
+/*  
+╔══════════════════════════════════════════════════════╗
+║  Projet Java – Le livre dont vous êtes le héros      ║
+║  Le Pirate des 7 Mers                               ║
+║                                                      ║
+║  ESGI 2 – Franck Giordano & Louis Dalet – 2025      ║
+╚══════════════════════════════════════════════════════╝
+*/
+
 package com.example.view;
 
 import com.example.controller.GameController;
@@ -9,15 +18,20 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TextUI {
+    // Le contrôleur qui orchestre la partie, initialisé quand on démarre ou charge
     private GameController controller;
+    // Scanner pour lire les réponses du joueur depuis la console
     private final Scanner scanner;
+    // Le scénario de l'aventure, chargé au lancement
     private final Scenario scenario;
 
+    // On construit l'UI texte avec le scanner et le scénario à portée de main
     public TextUI(Scanner scanner, Scenario scenario) {
         this.scanner = scanner;
         this.scenario = scenario;
     }
 
+    // Point d'entrée : affiche le menu principal et gère les choix jusqu'à la sortie
     public void start() {
         System.out.println("\n=== Le Pirate des Sept Mers ===");
         while (true) {
@@ -35,19 +49,25 @@ public class TextUI {
         }
     }
 
+    // Démarre une nouvelle partie : demande un nom, prépare le héros et lance la boucle de jeu
     private void actionNouvellePartie() {
         System.out.print("Entrez le nom de votre héros : ");
         String nomHeros = scanner.nextLine();
-        if(nomHeros.trim().isEmpty()) nomHeros = "L'Aventurier Anonyme";
+        if (nomHeros.trim().isEmpty()) {
+            nomHeros = "L'Aventurier Anonyme";
+        }
 
+        // On crée un personnage avec un peu de matériel et une compétence de base
         Personnage joueur = new Personnage(nomHeros);
         joueur.getCompetences().add("Escrime");
         joueur.ajouterObjet(new Objet("Épée", "arme"));
 
+        // On instancie le contrôleur avec le nouveau joueur et on entre dans la boucle de jeu
         this.controller = new GameController(scenario, joueur);
         boucleDeJeu();
     }
 
+    // Charge une partie existante si des fichiers de sauvegarde sont trouvés
     private void actionChargerPartie() {
         List<String> sauvegardes = SaveManager.listerSauvegardes();
         if (sauvegardes.isEmpty()) {
@@ -65,14 +85,15 @@ public class TextUI {
 
         try {
             GameState etatCharge = SaveManager.load(Paths.get(nomFichier));
-            this.controller = new GameController(scenario, etatCharge);
             System.out.println("Partie chargée !");
+            this.controller = new GameController(scenario, etatCharge);
             boucleDeJeu();
         } catch (Exception e) {
             System.out.println("-> Erreur lors du chargement de la sauvegarde.");
         }
     }
 
+    // La boucle principale du jeu : affiche chapitre, choix, gère sauvegarde ou progression
     private void boucleDeJeu() {
         while (true) {
             if (controller.isGameOver()) {
@@ -104,6 +125,7 @@ public class TextUI {
             String input = askForInput("Votre choix : ");
 
             if ("sauver".equalsIgnoreCase(input.trim())) {
+                // On propose de sauvegarder avant de continuer l'aventure
                 controller.sauvegarderPartie();
             } else {
                 try {
@@ -120,17 +142,21 @@ public class TextUI {
         }
     }
 
+    // Lit une ligne après avoir affiché un prompt, renvoie la chaine saisie
     private String askForInput(String prompt) {
         System.out.print(prompt);
         return scanner.nextLine();
     }
 
+    // Demande un entier entre min et max, répète jusqu'à obtenir une valeur valide
     private int askInt(String prompt, int min, int max) {
         while (true) {
             String input = askForInput(prompt);
             try {
                 int v = Integer.parseInt(input.trim());
-                if (v >= min && v <= max) return v;
+                if (v >= min && v <= max) {
+                    return v;
+                }
             } catch (NumberFormatException ignored) {}
             System.out.printf("Veuillez entrer un nombre entre %d et %d.%n", min, max);
         }
