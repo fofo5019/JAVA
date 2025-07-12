@@ -23,13 +23,12 @@ public class Personnage {
     public Personnage(String nom) {
         this();
         this.nom = nom;
-        // Valeurs par défaut selon le livre
         this.pointsDeVie = 10;
         this.pointsDeVieMax = 10;
         this.doublonsOr = 10;
     }
 
-    // Getters et Setters
+    // --- Getters et Setters ---
     public String getNom() { return nom; }
     public void setNom(String nom) { this.nom = nom; }
     public int getPointsDeVie() { return pointsDeVie; }
@@ -45,7 +44,11 @@ public class Personnage {
     public Set<String> getMotsDePasse() { return motsDePasse; }
     public void setMotsDePasse(Set<String> motsDePasse) { this.motsDePasse = motsDePasse; }
 
-    // Méthodes utilitaires
+    // --- Méthodes de jeu ---
+    public boolean estVivant() {
+        return this.pointsDeVie > 0;
+    }
+
     public void modifierPointsDeVie(int delta) {
         this.pointsDeVie += delta;
         if (this.pointsDeVie > this.pointsDeVieMax) {
@@ -61,12 +64,14 @@ public class Personnage {
             inventaire.add(objet);
         }
     }
-    
+
     public boolean hasCompetence(String nom) {
-        return competences.contains(nom);
+        if (nom == null || competences == null) return false;
+        return competences.stream().anyMatch(c -> c.equalsIgnoreCase(nom));
     }
 
     public boolean hasObjet(String nom) {
+        if (nom == null || inventaire == null) return false;
         return inventaire.stream().anyMatch(o -> o.getNom().equalsIgnoreCase(nom));
     }
 }

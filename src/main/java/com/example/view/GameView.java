@@ -67,7 +67,7 @@ public class GameView extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }
-    
+
     private void loadResources() {
         try {
             bgWood = ImageIO.read(getClass().getResourceAsStream("/images/fond_bois.png"));
@@ -76,7 +76,7 @@ public class GameView extends JFrame {
             if (f != null) {
                 pirateFont = Font.createFont(Font.TRUETYPE_FONT, f).deriveFont(Font.BOLD, 24f);
             } else {
-                 pirateFont = new Font("Serif", Font.BOLD, 24);
+                pirateFont = new Font("Serif", Font.BOLD, 24);
             }
         } catch (Exception e) {
             System.err.println("Erreur de chargement des ressources. Utilisation des polices par défaut.");
@@ -106,11 +106,9 @@ public class GameView extends JFrame {
             }
         });
 
-        // Couche 1: Particules
         ParticlePane particlePane = new ParticlePane();
         rootLayeredPane.add(particlePane, Integer.valueOf(1));
 
-        // Couche 2: Contenu de l'interface
         cardContainer = new JPanel(mainLayout);
         cardContainer.setOpaque(false);
         rootLayeredPane.add(cardContainer, Integer.valueOf(2));
@@ -124,10 +122,10 @@ public class GameView extends JFrame {
 
         mainLayout.show(cardContainer, "MENU");
     }
-    
+
     private void creerBarreMenu() {
         JMenuBar menuBar = new JMenuBar();
-        menuBar.setOpaque(false); 
+        menuBar.setOpaque(false);
         JMenu menuFichier = new JMenu("Fichier");
         menuFichier.setFont(pirateFont.deriveFont(16f));
 
@@ -140,7 +138,7 @@ public class GameView extends JFrame {
                 JOptionPane.showMessageDialog(this, "Partie sauvegardée !", "Sauvegarde", JOptionPane.INFORMATION_MESSAGE);
             }
         });
-        
+
         JMenuItem itemRetourMenu = new JMenuItem("Retour au menu principal");
         itemRetourMenu.setFont(pirateFont.deriveFont(16f));
         itemRetourMenu.addActionListener(e -> {
@@ -185,7 +183,7 @@ public class GameView extends JFrame {
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         box.add(title);
         box.add(Box.createVerticalStrut(60));
-        
+
         JButton btnNew = themedButton("Nouvelle Partie");
         btnNew.setFont(pirateFont.deriveFont(24f));
         btnNew.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -205,7 +203,7 @@ public class GameView extends JFrame {
             actionChargerPartieGraphique();
         });
         box.add(btnLoad);
-        
+
         menu.add(box);
         return menu;
     }
@@ -244,8 +242,8 @@ public class GameView extends JFrame {
         txtContent.setOpaque(false);
         txtContent.setEditable(false);
         String css = String.format(
-            "body{font-family:'%s';font-size:%dpt;color:#33281E;text-align:justify;} p{margin:0 0 1em;}",
-            textFont.getFamily(), textFont.getSize());
+                "body{font-family:'%s';font-size:%dpt;color:#33281E;text-align:justify;} p{margin:0 0 1em;}",
+                textFont.getFamily(), textFont.getSize());
         ((HTMLDocument)txtContent.getDocument()).getStyleSheet().addRule(css);
 
         JScrollPane scroll = new JScrollPane(txtContent);
@@ -274,7 +272,7 @@ public class GameView extends JFrame {
 
         return gamePanel;
     }
-    
+
     private void styleJOptionPane() {
         Color woodColor = new Color(101, 67, 33);
         Color textColor = new Color(240, 230, 210);
@@ -291,14 +289,14 @@ public class GameView extends JFrame {
         contentPanel.setOpaque(false);
         JLabel label = infoLabel("Entrez le nom de votre héros :", textFont, Color.WHITE);
         contentPanel.add(label, BorderLayout.NORTH);
-        
+
         JTextField textField = new JTextField(20);
         textField.setFont(textFont.deriveFont(16f));
         textField.setBackground(new Color(240, 230, 210));
         textField.setForeground(Color.BLACK);
         textField.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(50, 25, 0)),
-            new EmptyBorder(5, 5, 5, 5)
+                BorderFactory.createLineBorder(new Color(50, 25, 0)),
+                new EmptyBorder(5, 5, 5, 5)
         ));
         contentPanel.add(textField, BorderLayout.CENTER);
 
@@ -310,13 +308,13 @@ public class GameView extends JFrame {
         buttonPanel.add(Box.createHorizontalStrut(10));
         buttonPanel.add(cancelButton);
         contentPanel.add(buttonPanel, BorderLayout.SOUTH);
-        
+
         final ThemedDialog dialog = new ThemedDialog(this, "Nouvelle Partie", contentPanel);
         AtomicReference<String> nomHerosResult = new AtomicReference<>();
 
         okButton.addActionListener(e -> {
             playSound("sons/bang.wav");
-            
+
             Timer shakeDelayTimer = new Timer(500, evt -> shake());
             shakeDelayTimer.setRepeats(false);
             shakeDelayTimer.start();
@@ -324,11 +322,13 @@ public class GameView extends JFrame {
             String input = textField.getText();
             if (input != null && !input.trim().isEmpty()) {
                 nomHerosResult.set(input.trim());
+            } else {
+                nomHerosResult.set("L'Aventurier Anonyme");
             }
             dialog.dispose();
         });
         cancelButton.addActionListener(e -> dialog.dispose());
-        
+
         dialog.setVisible(true);
         String nomHeros = nomHerosResult.get();
 
@@ -373,14 +373,14 @@ public class GameView extends JFrame {
 
         final ThemedDialog dialog = new ThemedDialog(this, "Charger une partie", contentPanel);
         AtomicReference<String> fichierChoisi = new AtomicReference<>();
-        
+
         okButton.addActionListener(e -> {
             playSound("sons/bang.wav");
-            
+
             Timer shakeDelayTimer = new Timer(500, evt -> shake());
             shakeDelayTimer.setRepeats(false);
             shakeDelayTimer.start();
-            
+
             fichierChoisi.set((String) comboBox.getSelectedItem());
             dialog.dispose();
         });
@@ -408,31 +408,42 @@ public class GameView extends JFrame {
     public void updateGameView() {
         if (controller == null) return;
         updateStatusPanel();
-        Chapitre chap = controller.getChapitreCourant();
-        lblTitre.setText("Chapitre " + chap.getId());
-        String html = "<html><body><p>" + chap.getTexte().replace("\n", "</p><p>") + "</p></body></html>";
-        txtContent.setText(html);
-        SwingUtilities.invokeLater(() -> txtContent.setCaretPosition(0));
 
-        pnlChoices.removeAll();
-        List<Choix> choices = controller.getChoixDisponibles();
-        if (choices.isEmpty()) {
-            JLabel fin = infoLabel("FIN DE L'AVENTURE", pirateFont.deriveFont(28f), Color.RED);
+        if (controller.isGameOver()) {
+            lblTitre.setText("Fin de l'aventure");
+            txtContent.setText("<html><body><p>Votre aventure s'achève ici. Vous n'avez pas survécu aux dangers de ces mers impitoyables.</p></body></html>");
+            pnlChoices.removeAll();
+            JLabel fin = infoLabel("GAME OVER", pirateFont.deriveFont(32f), Color.RED);
             fin.setAlignmentX(Component.CENTER_ALIGNMENT);
             pnlChoices.add(fin);
         } else {
-            choices.forEach(c -> {
-                JButton b = themedButton(c.getTexte());
-                b.setAlignmentX(Component.CENTER_ALIGNMENT);
-                b.addActionListener(e -> {
-                    controller.choisir(c);
-                    updateGameView();
+            Chapitre chap = controller.getChapitreCourant();
+            lblTitre.setText("Chapitre " + chap.getId());
+            String html = "<html><body><p>" + chap.getTexte().replace("\n", "</p><p>") + "</p></body></html>";
+            txtContent.setText(html);
+            SwingUtilities.invokeLater(() -> txtContent.setCaretPosition(0));
+
+            pnlChoices.removeAll();
+            List<Choix> choices = controller.getChoixDisponibles();
+            if (choices.isEmpty()) {
+                JLabel fin = infoLabel("FIN DE L'AVENTURE", pirateFont.deriveFont(28f), new Color(87, 65, 43));
+                fin.setAlignmentX(Component.CENTER_ALIGNMENT);
+                pnlChoices.add(fin);
+            } else {
+                choices.forEach(c -> {
+                    JButton b = themedButton(c.getTexte());
+                    b.setAlignmentX(Component.CENTER_ALIGNMENT);
+                    b.addActionListener(e -> {
+                        controller.choisir(c);
+                        updateGameView();
+                    });
+                    pnlChoices.add(b);
+                    pnlChoices.add(Box.createVerticalStrut(10));
                 });
-                pnlChoices.add(b);
-                pnlChoices.add(Box.createVerticalStrut(10));
-            });
+            }
         }
-        revalidate(); repaint();
+        revalidate();
+        repaint();
     }
 
     private void updateStatusPanel() {
@@ -467,7 +478,7 @@ public class GameView extends JFrame {
         gbc.weighty = 1.0;
         pnlStatus.add(new JLabel(), gbc);
     }
-    
+
     private void shake() {
         final Point originalLocation = getLocation();
         final int duration = 150;
@@ -496,7 +507,7 @@ public class GameView extends JFrame {
             }
         }).start();
     }
-    
+
     private void playSound(String soundFileName) {
         try {
             InputStream audioSrc = getClass().getResourceAsStream("/" + soundFileName);
@@ -513,7 +524,7 @@ public class GameView extends JFrame {
             System.err.println("Erreur lors de la lecture du son: " + e.getMessage());
         }
     }
-    
+
     private JLabel infoLabel(String text, Font font, Color color) {
         JLabel lbl = new JLabel(text);
         lbl.setFont(font);
@@ -548,17 +559,17 @@ public class GameView extends JFrame {
         btn.setFocusPainted(false);
         btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(210, 105, 30), 2),
-            new EmptyBorder(10, 25, 10, 25)
+                BorderFactory.createLineBorder(new Color(210, 105, 30), 2),
+                new EmptyBorder(10, 25, 10, 25)
         ));
         btn.setMaximumSize(new Dimension(450, 60));
         return btn;
     }
-    
+
     private static class PirateScrollBarUI extends BasicScrollBarUI {
         private final Dimension ZERO_DIMENSION = new Dimension(0, 0);
         private final Color THUMB_COLOR = new Color(80, 40, 0, 180);
-        
+
         @Override
         protected void configureScrollBarColors() {}
 
@@ -580,7 +591,7 @@ public class GameView extends JFrame {
 
         @Override
         protected JButton createIncreaseButton(int orientation) { return createZeroButton(); }
-        
+
         private JButton createZeroButton() {
             JButton button = new JButton();
             button.setPreferredSize(ZERO_DIMENSION);
@@ -589,7 +600,7 @@ public class GameView extends JFrame {
             return button;
         }
     }
-    
+
     private static class ThemedDialog extends JDialog {
         private Point initialClick;
 
@@ -604,7 +615,7 @@ public class GameView extends JFrame {
             JPanel titleBar = new JPanel(new BorderLayout());
             titleBar.setBackground(new Color(60, 30, 5));
             titleBar.setBorder(new EmptyBorder(5, 10, 5, 5));
-            
+
             JLabel titleLabel = new JLabel(title);
             titleLabel.setForeground(Color.WHITE);
             titleLabel.setFont(parent.getFont().deriveFont(Font.BOLD, 14f));
@@ -617,7 +628,7 @@ public class GameView extends JFrame {
             closeButton.setBorder(new EmptyBorder(2, 5, 2, 5));
             closeButton.addActionListener(e -> dispose());
             titleBar.add(closeButton, BorderLayout.EAST);
-            
+
             MouseAdapter adapter = new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
                     initialClick = e.getPoint();
@@ -635,10 +646,10 @@ public class GameView extends JFrame {
             titleBar.addMouseMotionListener(adapter);
 
             contentPanel.setBorder(new EmptyBorder(15, 15, 15, 15));
-            
+
             rootPanel.add(titleBar, BorderLayout.NORTH);
             rootPanel.add(contentPanel, BorderLayout.CENTER);
-            
+
             setContentPane(rootPanel);
             pack();
             setLocationRelativeTo(parent);
@@ -690,7 +701,7 @@ public class GameView extends JFrame {
                 for (int i = 0; i < count; i++) {
                     int x = random.nextInt(getWidth());
                     double vx = (random.nextDouble() - 0.5) * 1.5;
-                    double vy = -random.nextDouble() * 2.5 - 1.0; 
+                    double vy = -random.nextDouble() * 2.5 - 1.0;
                     int life = random.nextInt(150) + 120;
                     int size = random.nextInt(4) + 7;
                     particles.add(new Particle(x, getHeight() + 10, vx, vy, life, size));
@@ -720,14 +731,14 @@ public class GameView extends JFrame {
                 float radius = p.size / 2.0f;
                 float[] dist = {0.0f, 0.8f, 1.0f};
                 Color[] colors = {
-                    new Color(255, 255, 220, 220), 
-                    new Color(255, 150, 0, 100),  
-                    new Color(200, 50, 0, 0)       
+                        new Color(255, 255, 220, 220),
+                        new Color(255, 150, 0, 100),
+                        new Color(200, 50, 0, 0)
                 };
 
                 RadialGradientPaint rgp = new RadialGradientPaint(center, radius, dist, colors);
                 g2d.setPaint(rgp);
-                
+
                 g2d.fillRoundRect((int)p.x, (int)p.y, p.size, p.size, p.size / 2, p.size / 2);
             }
             g2d.dispose();

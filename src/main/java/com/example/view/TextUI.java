@@ -34,7 +34,7 @@ public class TextUI {
             }
         }
     }
-    
+
     private void actionNouvellePartie() {
         System.out.print("Entrez le nom de votre héros : ");
         String nomHeros = scanner.nextLine();
@@ -43,7 +43,7 @@ public class TextUI {
         Personnage joueur = new Personnage(nomHeros);
         joueur.getCompetences().add("Escrime");
         joueur.ajouterObjet(new Objet("Épée", "arme"));
-        
+
         this.controller = new GameController(scenario, joueur);
         boucleDeJeu();
     }
@@ -59,10 +59,10 @@ public class TextUI {
         for (int i = 0; i < sauvegardes.size(); i++) {
             System.out.printf("%d) %s\n", i + 1, sauvegardes.get(i));
         }
-        
+
         int choix = askInt("Quelle partie charger ? ", 1, sauvegardes.size()) - 1;
         String nomFichier = sauvegardes.get(choix);
-        
+
         try {
             GameState etatCharge = SaveManager.load(Paths.get(nomFichier));
             this.controller = new GameController(scenario, etatCharge);
@@ -75,6 +75,12 @@ public class TextUI {
 
     private void boucleDeJeu() {
         while (true) {
+            if (controller.isGameOver()) {
+                System.out.println("\nVos points de vie sont tombés à zéro.");
+                System.out.println("--- FIN DE L'AVENTURE ---");
+                break;
+            }
+
             Chapitre c = controller.getChapitreCourant();
             if (c == null) {
                 System.out.println("Erreur : Le chapitre actuel est introuvable.");
@@ -113,14 +119,14 @@ public class TextUI {
             }
         }
     }
-    
+
     private String askForInput(String prompt) {
         System.out.print(prompt);
         return scanner.nextLine();
     }
-    
+
     private int askInt(String prompt, int min, int max) {
-         while (true) {
+        while (true) {
             String input = askForInput(prompt);
             try {
                 int v = Integer.parseInt(input.trim());

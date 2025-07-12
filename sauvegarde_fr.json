@@ -1,15 +1,19 @@
 {
-  "chapitreActuel" : 2,
+  "chapitreActuel" : 20,
   "joueur" : {
     "nom" : "fr",
-    "pointsDeVie" : 10,
+    "pointsDeVie" : 7,
     "pointsDeVieMax" : 10,
-    "doublonsOr" : 10,
+    "doublonsOr" : 12,
     "inventaire" : [ {
       "nom" : "Épée",
       "type" : "arme"
+    }, {
+      "nom" : "carte",
+      "type" : "Inconnu"
     } ],
     "competences" : [ "Navigation", "Escrime" ],
-    "motsDePasse" : [ ]
-  }
+    "motsDePasse" : [ "Trésor" ]
+  },
+  "chapitresVisites" : [ 1, 20 ]
 }

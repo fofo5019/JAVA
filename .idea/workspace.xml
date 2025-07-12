@@ -5,18 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce13b1ba-6d41-43ae-9d11-08b817fb6988" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/model/ScenarioDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sauvegarde_fr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sauvegarde_franck.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/controller/ScenarioLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/controller/ScenarioLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/model/Chapitre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/model/Chapitre.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/model/Choix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/model/Choix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/model/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/model/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/model/Personnage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/model/Personnage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/view/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/view/TextUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/view/TextUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Le_Pirate_des_Sept_Mers_SCENARIO.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Le_Pirate_des_Sept_Mers_SCENARIO.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Le_Pirate_des_Sept_Mers_SCENARIO.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Le_Pirate_des_Sept_Mers_SCENARIO.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/controller/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/controller/GameController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/controller/ScenarioLoader$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/controller/ScenarioLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/controller/ScenarioLoader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/model/Chapitre.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/model/Chapitre.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/model/Choix.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/model/Choix.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/model/GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/model/GameState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/model/Personnage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/model/Personnage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/view/GameView$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/view/GameView$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView$Particle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/view/GameView$Particle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView$ParticlePane.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/view/GameView$ParticlePane.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView$PirateScrollBarUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/view/GameView$PirateScrollBarUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView$ThemedDialog$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/view/GameView$ThemedDialog$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView$ThemedDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/view/GameView$ThemedDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/view/GameView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/TextUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/view/TextUI.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,8 +55,9 @@
   "keyToString": {
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "ma-feature",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/bazin/Documents/Le Live Dont Vous Etes Le Hero",
