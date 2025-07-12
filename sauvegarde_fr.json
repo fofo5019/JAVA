@@ -1,0 +1,15 @@
+{
+  "chapitreActuel" : 2,
+  "joueur" : {
+    "nom" : "fr",
+    "pointsDeVie" : 10,
+    "pointsDeVieMax" : 10,
+    "doublonsOr" : 10,
+    "inventaire" : [ {
+      "nom" : "Épée",
+      "type" : "arme"
+    } ],
+    "competences" : [ "Navigation", "Escrime" ],
+    "motsDePasse" : [ ]
+  }
+}
