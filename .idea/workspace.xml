@@ -6,23 +6,35 @@
   <component name="ChangeListManager">
     <list default="true" id="ce13b1ba-6d41-43ae-9d11-08b817fb6988" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/app/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/controller/ScenarioLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/controller/ScenarioLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/model/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/model/Action.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/model/ActionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/model/ActionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/model/Chapitre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/model/Chapitre.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/model/Choix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/model/Choix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/model/Competence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/model/Competence.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/model/Condition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/model/Condition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/model/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/model/GameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/model/Objet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/model/Objet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/model/Personnage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/model/Personnage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/model/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/model/Scenario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/model/ScenarioDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/model/ScenarioDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/util/SaveManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/util/SaveManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sauvegarde_fr.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/view/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/view/TextUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/view/TextUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/app/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/controller/GameController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/controller/ScenarioLoader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/model/Action.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/model/ActionType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/model/Chapitre.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/model/Choix.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/model/Competence.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/model/Condition.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/model/GameState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/model/Objet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/model/Personnage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/model/Scenario.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/model/ScenarioDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/util/SaveManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView$Particle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView$ParticlePane.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView$PirateScrollBarUI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView$ThemedDialog$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView$ThemedDialog.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/GameView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/view/TextUI.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

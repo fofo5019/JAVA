@@ -1,4 +1,4 @@
-/*  
+/*
 ╔══════════════════════════════════════════════════════╗
 ║  Projet Java – Le livre dont vous êtes le héros      ║
 ║  Le Pirate des 7 Mers                               ║
@@ -38,7 +38,8 @@ import java.io.*;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class GameView extends JFrame {
