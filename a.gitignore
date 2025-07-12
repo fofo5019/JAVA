@@ -1,0 +1,14 @@
+# Java build
+*.class
+/target/
+
+# IntelliJ IDEA
+/.idea/
+/*.iml
+
+# VS Code
+.vscode/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
